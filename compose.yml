@@ -1,0 +1,38 @@
+# Niijima Archive (the Thieves Den): one container behind your existing Traefik and Cloudflare Tunnel.
+#
+#   cp config.example.yml config.yml && cp .env.example .env   (then fill in .env)
+#   docker compose up -d --build
+
+services:
+  archive:
+    build: .
+    image: niijima/archive:latest
+    container_name: niijima-archive
+    restart: unless-stopped
+    init: true
+    user: '${PUID:-1000}:${PGID:-1000}'
+    env_file: .env
+    environment:
+      # Traefik and the tunnel hand the app plain http; this tells it the address the browser
+      # really uses, so form posts pass the origin check and cookies get the Secure flag.
+      ORIGIN: ${PUBLIC_URL:-https://archive.niijimasisters.com}
+    volumes:
+      # The database, every saved file (data/media/<yyyy>/<mm>/) and the share inbox.
+      - ./data:/app/data
+      # Your own art (the host's picture). Never committed.
+      - ./assets:/app/assets:ro
+      # This folder, read-only: the app reads config.yml from it.
+      - ./:/app/settings:ro
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:-proxy}
+      - traefik.http.routers.archive.rule=Host(`${APP_HOST:-archive.niijimasisters.com}`)
+      - traefik.http.routers.archive.entrypoints=${TRAEFIK_ENTRYPOINT:-web}
+      - traefik.http.services.archive.loadbalancer.server.port=3000
+
+networks:
+  proxy:
+    name: ${TRAEFIK_NETWORK:-proxy}
+    external: true

@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Niijima Archive · config.yml
+#
+#  How the Thieves Den behaves. Copy this file to config.yml and change what you
+#  need; anything you leave out uses the value shown here. A typo stops the app
+#  at startup with a message naming the setting, so nothing runs on a misread value.
+#  Restart after editing:  docker compose restart archive
+# ─────────────────────────────────────────────────────────────────────────────
+
+locale: en-GB # how dates are written: en-GB is "21 Oct 2026"
+timezone: Europe/Budapest # for the calendar in the corner
+
+# Who greets you in the Den. Put her picture (transparent PNG or WebP works best)
+# in the assets/ folder next to compose.yml and name it here. Until the file is
+# there, a silhouette stands in. One of the lines is picked each day.
+host:
+  name: Makoto
+  art: /assets/host.webp
+  lines:
+    - Everything we've taken, catalogued. Write down why you took it. Future you will ask.
+    - A treasure without a caption is just clutter. Give it a reason to be here.
+    - Paste a link, drop a picture. I'll keep it safe, even if the original disappears.
+
+access:
+  # Discord accounts allowed to sign in. Find yours by signing in once (the page
+  # shows it), or in Discord: Settings → Advanced → Developer Mode, then right-click
+  # your name → Copy User ID. Quote it.
+  discord_user_ids: []
+  # discord_user_ids:
+  #   - '123456789012345678'
+
+media:
+  max_upload_mb: 100 # largest file you can upload or share in
+  max_tweet_media_mb: 100 # largest photo or video taken from a tweet (a smaller video is picked if one fits)
+  fetch_timeout_seconds: 20 # how long to wait for FxTwitter / vxTwitter and Twitter's file servers
+  thumb_width: 480 # width of the grid pictures, in pixels
+
+gallery:
+  page_size: 40 # items loaded at a time while you scroll
