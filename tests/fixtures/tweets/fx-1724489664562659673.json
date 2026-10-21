@@ -1,0 +1,143 @@
+{
+ "code": 200,
+ "message": "OK",
+ "tweet": {
+  "url": "https://x.com/SpongeBob/status/1724489664562659673",
+  "id": "1724489664562659673",
+  "text": "#NationalPickleDay",
+  "raw_text": {
+   "text": "#NationalPickleDay https://t.co/VgKycngZH6",
+   "display_text_range": [
+    0,
+    18
+   ],
+   "facets": [
+    {
+     "type": "hashtag",
+     "indices": [
+      0,
+      18
+     ],
+     "original": "NationalPickleDay"
+    },
+    {
+     "type": "media",
+     "indices": [
+      19,
+      42
+     ],
+     "id": "1724489641200435200",
+     "display": "pic.x.com/VgKycngZH6",
+     "original": "https://t.co/VgKycngZH6",
+     "replacement": "https://x.com/SpongeBob/status/1724489664562659673/photo/1"
+    }
+   ]
+  },
+  "author": {
+   "screen_name": "SpongeBob",
+   "url": "https://x.com/SpongeBob",
+   "id": "17088779",
+   "followers": 2538036,
+   "following": 20,
+   "likes": 2828,
+   "media_count": 7212,
+   "name": "SpongeBob",
+   "description": "@nickelodeon\u2019s official SpongeBob SquarePants \ud83c\udf4d stream now on @paramountplus",
+   "raw_description": {
+    "text": "@nickelodeon\u2019s official SpongeBob SquarePants \ud83c\udf4d stream now on @paramountplus",
+    "facets": []
+   },
+   "location": "Bikini Bottom",
+   "banner_url": "https://pbs.twimg.com/profile_banners/17088779/1716390607",
+   "avatar_url": "https://pbs.twimg.com/profile_images/2077388067380314112/_lLZbiKp_200x200.jpg",
+   "joined": "Fri Oct 31 17:39:46 +0000 2008",
+   "protected": false,
+   "website": {
+    "url": "http://www.paramountplus.com/spongebob",
+    "display_url": "paramountplus.com/spongebob"
+   },
+   "verification": {
+    "verified": true,
+    "verified_at": null,
+    "type": "organization"
+   },
+   "avatar_color": null
+  },
+  "replies": 60,
+  "retweets": 210,
+  "likes": 1379,
+  "bookmarks": 47,
+  "quotes": 15,
+  "created_at": "Tue Nov 14 18:09:10 +0000 2023",
+  "created_timestamp": 1699985350,
+  "possibly_sensitive": false,
+  "views": 266634,
+  "is_note_tweet": false,
+  "community_note": null,
+  "lang": null,
+  "replying_to": null,
+  "replying_to_status": null,
+  "media": {
+   "all": [
+    {
+     "id": "1724489641200435200",
+     "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+     "thumbnail_url": "https://pbs.twimg.com/tweet_video_thumb/F-6eMSKXwAAWfLJ.jpg",
+     "duration": 0,
+     "width": 480,
+     "height": 270,
+     "format": "video/mp4",
+     "type": "gif",
+     "formats": [
+      {
+       "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+       "bitrate": 0,
+       "container": "mp4",
+       "codec": "h264"
+      }
+     ],
+     "publisher": null,
+     "variants": [
+      {
+       "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+       "bitrate": 0,
+       "content_type": "video/mp4"
+      }
+     ]
+    }
+   ],
+   "videos": [
+    {
+     "id": "1724489641200435200",
+     "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+     "thumbnail_url": "https://pbs.twimg.com/tweet_video_thumb/F-6eMSKXwAAWfLJ.jpg",
+     "duration": 0,
+     "width": 480,
+     "height": 270,
+     "format": "video/mp4",
+     "type": "gif",
+     "formats": [
+      {
+       "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+       "bitrate": 0,
+       "container": "mp4",
+       "codec": "h264"
+      }
+     ],
+     "publisher": null,
+     "variants": [
+      {
+       "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4",
+       "bitrate": 0,
+       "content_type": "video/mp4"
+      }
+     ]
+    }
+   ]
+  },
+  "twitter_card": "player",
+  "color": null,
+  "provider": "twitter",
+  "reposted_by": null
+ }
+}

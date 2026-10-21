@@ -1,5 +1,28 @@
-node_modules/
-.svelte-kit/
-build/
-data/
+node_modules
+
+# Build output
+.svelte-kit
+build
+
+# Runtime data: the database, the saved files, the share inbox
+/data
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Your own settings, art and secrets stay out of git (this repo is public)
+/config.yml
+/assets/*
+!/assets/README.md
 .env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

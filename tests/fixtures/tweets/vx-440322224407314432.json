@@ -1,0 +1,49 @@
+{
+ "allSameType": true,
+ "article": null,
+ "combinedMediaUrl": null,
+ "communityNote": null,
+ "conversationID": "440322224407314432",
+ "date": "Mon Mar 03 03:06:13 +0000 2014",
+ "date_epoch": 1393815973,
+ "fetched_on": 1792604633,
+ "hasMedia": true,
+ "hashtags": [
+  "oscars"
+ ],
+ "lang": "en",
+ "likes": 1895139,
+ "mediaURLs": [
+  "https://pbs.twimg.com/media/BhxWutnCEAAtEQ6.jpg"
+ ],
+ "media_extended": [
+  {
+   "altText": null,
+   "id_str": "440322224092745728",
+   "size": {
+    "height": 1080,
+    "width": 1920
+   },
+   "thumbnail_url": "https://pbs.twimg.com/media/BhxWutnCEAAtEQ6.jpg",
+   "type": "image",
+   "url": "https://pbs.twimg.com/media/BhxWutnCEAAtEQ6.jpg"
+  }
+ ],
+ "pollData": null,
+ "possibly_sensitive": false,
+ "qrt": null,
+ "qrtURL": null,
+ "replies": 158889,
+ "replyingTo": null,
+ "replyingToID": null,
+ "retweet": null,
+ "retweetURL": null,
+ "retweets": 2510367,
+ "text": "If only Bradley's arm was longer. Best photo ever. #oscars http://t.co/C9U5NOtGap",
+ "translation": null,
+ "tweetID": "440322224407314432",
+ "tweetURL": "https://twitter.com/TheEllenShow/status/440322224407314432",
+ "user_name": "The Ellen Show",
+ "user_profile_image_url": "https://pbs.twimg.com/profile_images/1909090851592273920/UutmZxGI_normal.jpg",
+ "user_screen_name": "TheEllenShow"
+}

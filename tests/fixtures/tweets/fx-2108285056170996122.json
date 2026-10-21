@@ -1,0 +1,152 @@
+{
+ "code": 200,
+ "message": "OK",
+ "tweet": {
+  "url": "https://x.com/NASA/status/2108285056170996122",
+  "id": "2108285056170996122",
+  "text": "Welcome home!\n\nCrew-12 splashed down in the Pacific on Thursday, Oct. 8. Their 237-day mission aboard the @Space_Station included research into medicine, quantum science, and 3D-printing with metal in low Earth orbit. https://go.nasa.gov/4elVwzA",
+  "raw_text": {
+   "text": "Welcome home!\n\nCrew-12 splashed down in the Pacific on Thursday, Oct. 8. Their 237-day mission aboard the @Space_Station included research into medicine, quantum science, and 3D-printing with metal in low Earth orbit. https://t.co/bHE4QrN1r5 https://t.co/QzBt6v9Ak3",
+   "display_text_range": [
+    0,
+    241
+   ],
+   "facets": [
+    {
+     "type": "mention",
+     "indices": [
+      106,
+      120
+     ],
+     "original": "Space_Station",
+     "id": "1451773004"
+    },
+    {
+     "type": "url",
+     "indices": [
+      218,
+      241
+     ],
+     "original": "https://t.co/bHE4QrN1r5",
+     "replacement": "https://go.nasa.gov/4elVwzA",
+     "display": "go.nasa.gov/4elVwzA"
+    },
+    {
+     "type": "media",
+     "indices": [
+      242,
+      265
+     ],
+     "id": "2108285048789069824",
+     "display": "pic.x.com/QzBt6v9Ak3",
+     "original": "https://t.co/QzBt6v9Ak3",
+     "replacement": "https://x.com/NASA/status/2108285056170996122/photo/1"
+    },
+    {
+     "type": "media",
+     "indices": [
+      242,
+      265
+     ],
+     "id": "2108285052350029824",
+     "display": "pic.x.com/QzBt6v9Ak3",
+     "original": "https://t.co/QzBt6v9Ak3",
+     "replacement": "https://x.com/NASA/status/2108285056170996122/photo/1"
+    }
+   ]
+  },
+  "author": {
+   "screen_name": "NASA",
+   "url": "https://x.com/NASA",
+   "id": "11348282",
+   "followers": 92313334,
+   "following": 115,
+   "likes": 17032,
+   "media_count": 28204,
+   "name": "NASA",
+   "description": "Making the seemingly impossible, possible. \u2728",
+   "raw_description": {
+    "text": "Making the seemingly impossible, possible. \u2728",
+    "facets": []
+   },
+   "location": "Pale Blue Dot",
+   "banner_url": "https://pbs.twimg.com/profile_banners/11348282/1788992290",
+   "avatar_url": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_200x200.jpg",
+   "joined": "Wed Dec 19 20:20:32 +0000 2007",
+   "protected": false,
+   "website": {
+    "url": "http://www.nasa.gov/",
+    "display_url": "nasa.gov"
+   },
+   "verification": {
+    "verified": true,
+    "verified_at": null,
+    "type": "government"
+   },
+   "avatar_color": null
+  },
+  "replies": 195,
+  "retweets": 829,
+  "likes": 6444,
+  "bookmarks": 156,
+  "quotes": 49,
+  "created_at": "Thu Oct 08 19:55:02 +0000 2026",
+  "created_timestamp": 1791489302,
+  "possibly_sensitive": false,
+  "views": 1550497,
+  "is_note_tweet": false,
+  "community_note": null,
+  "lang": "en",
+  "replying_to": null,
+  "replying_to_status": null,
+  "media": {
+   "all": [
+    {
+     "type": "photo",
+     "id": "2108285048789069824",
+     "url": "https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg?name=orig",
+     "width": 2048,
+     "height": 1365,
+     "altText": "Crew-12's spacecraft \u2014 attached to four large parachutes \u2014 descending through a cloudy daytime sky."
+    },
+    {
+     "type": "photo",
+     "id": "2108285052350029824",
+     "url": "https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg?name=orig",
+     "width": 2048,
+     "height": 1365,
+     "altText": "The members of Crew-12 inside of their spacecraft post-splashdown. They are strapped into their seats, smiling and waving."
+    }
+   ],
+   "photos": [
+    {
+     "type": "photo",
+     "id": "2108285048789069824",
+     "url": "https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg?name=orig",
+     "width": 2048,
+     "height": 1365,
+     "altText": "Crew-12's spacecraft \u2014 attached to four large parachutes \u2014 descending through a cloudy daytime sky."
+    },
+    {
+     "type": "photo",
+     "id": "2108285052350029824",
+     "url": "https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg?name=orig",
+     "width": 2048,
+     "height": 1365,
+     "altText": "The members of Crew-12 inside of their spacecraft post-splashdown. They are strapped into their seats, smiling and waving."
+    }
+   ],
+   "mosaic": {
+    "type": "mosaic_photo",
+    "formats": {
+     "jpeg": "https://mosaic.fxtwitter.com/jpeg/2108285056170996122/HUIiFOpW8AABTfc/HUIiFb6W4AAwNM7",
+     "webp": "https://mosaic.fxtwitter.com/webp/2108285056170996122/HUIiFOpW8AABTfc/HUIiFb6W4AAwNM7"
+    }
+   }
+  },
+  "twitter_card": "summary_large_image",
+  "color": null,
+  "provider": "twitter",
+  "reposted_by": null
+ }
+}
