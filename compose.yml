@@ -27,12 +27,12 @@ services:
       - proxy
     labels:
       - traefik.enable=true
-      - traefik.docker.network=${TRAEFIK_NETWORK:-proxy}
+      - traefik.docker.network=${TRAEFIK_NETWORK:-zipline_default}
       - traefik.http.routers.archive.rule=Host(`${APP_HOST:-archive.niijimasisters.com}`)
       - traefik.http.routers.archive.entrypoints=${TRAEFIK_ENTRYPOINT:-web}
       - traefik.http.services.archive.loadbalancer.server.port=3000
 
 networks:
   proxy:
-    name: ${TRAEFIK_NETWORK:-proxy}
+    name: ${TRAEFIK_NETWORK:-zipline_default}
     external: true
