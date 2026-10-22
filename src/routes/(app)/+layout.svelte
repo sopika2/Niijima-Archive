@@ -9,7 +9,8 @@
 	const nav = [
 		{ href: '/', label: 'Den', hint: 'Everything stolen' },
 		{ href: '/add', label: 'Steal', hint: 'Save a tweet or pictures' },
-		{ href: '/collections', label: 'Collections', hint: 'Showcases' }
+		{ href: '/collections', label: 'Collections', hint: 'Showcases' },
+		{ href: '/mementos', label: 'Mementos', hint: 'Where the files are kept, and the sync' }
 	] as const;
 	const active = (href: string) =>
 		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
@@ -174,9 +175,13 @@
 		.top__right {
 			gap: 6px;
 		}
+		.tabs {
+			gap: 4px;
+		}
 		.tab {
-			padding-inline: 13px;
-			font-size: 19px;
+			padding-inline: 9px;
+			font-size: 17px;
+			letter-spacing: 0.04em;
 		}
 	}
 </style>

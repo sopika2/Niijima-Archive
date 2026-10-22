@@ -2,15 +2,17 @@
 export function formatDate(
 	iso: string | null | undefined,
 	locale = 'en-GB',
-	timeZone?: string
+	timeZone?: string,
+	withTime = false
 ): string {
 	if (!iso) return '';
 	const date = new Date(iso);
 	if (Number.isNaN(date.getTime())) return '';
-	return date.toLocaleDateString(locale, {
+	return date.toLocaleString(locale, {
 		day: 'numeric',
 		month: 'short',
 		year: 'numeric',
+		...(withTime ? { hour: '2-digit', minute: '2-digit' } : {}),
 		timeZone
 	});
 }

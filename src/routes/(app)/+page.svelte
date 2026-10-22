@@ -282,12 +282,14 @@
 	<form
 		class="bulk"
 		method="POST"
-		use:enhance={({ action, cancel }) => {
-			if (
-				action.search.includes('delete') &&
-				!confirm(`Delete ${selected.length} item(s) and their files? This can't be undone.`)
-			)
-				cancel();
+		use:enhance={({ action, formData, cancel }) => {
+			const there = formData.get('zipline') === '1';
+			const question = there
+				? `Delete ${selected.length} item(s) here AND their files on Mementos? This can't be undone.`
+				: data.mementos
+					? `Delete ${selected.length} item(s)? Their files stay on Mementos.`
+					: `Delete ${selected.length} item(s) and their files? This can't be undone.`;
+			if (action.search.includes('delete') && !confirm(question)) cancel();
 			return async ({ update }) => {
 				await update({ reset: false });
 				stopSelecting();
@@ -313,6 +315,12 @@
 		<button class="quiet danger" formaction="?/delete" disabled={selected.length === 0}
 			>Delete</button
 		>
+		{#if data.mementos}
+			<label class="also">
+				<input type="checkbox" name="zipline" value="1" />
+				<span>…on Mementos too</span>
+			</label>
+		{/if}
 	</form>
 {/if}
 
@@ -507,5 +515,18 @@
 	}
 	.bulk .pick {
 		flex: 1 1 140px;
+	}
+	.also {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		min-height: 44px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.also input {
+		width: 20px;
+		height: 20px;
+		accent-color: var(--nj-accent);
 	}
 </style>

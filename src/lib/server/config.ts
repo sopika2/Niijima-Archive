@@ -29,7 +29,7 @@ export const configSchema = z.strictObject({
 					message: 'must be a picture under /assets/, e.g. /assets/makoto.webp'
 				})
 				.refine((path) => !path.includes('..'), { message: 'must not contain ".."' })
-				.default('/assets/host.webp'),
+				.default('/assets/menu-makoto.png'),
 			lines: z
 				.array(z.string().min(1).max(240))
 				.min(1)
@@ -75,6 +75,17 @@ export const configSchema = z.strictObject({
 			fetch_timeout_seconds: z.number().int().min(2).max(300).default(20),
 			/** Width of the grid thumbnails, in pixels. */
 			thumb_width: z.number().int().min(160).max(1600).default(480)
+		})
+		.prefault({}),
+	/** Mementos (Zipline) as the storage, when ZIPLINE_URL and ZIPLINE_TOKEN are set in .env. */
+	zipline: z
+		.strictObject({
+			/** How often her own Zipline uploads are brought in, in minutes. */
+			sync_minutes: z.number().int().min(1).max(1440).default(5),
+			/** The Zipline folder the Archive's files go in; "" for none. */
+			folder: z.string().max(100).default('Archive'),
+			/** The collection her own Zipline uploads appear in. */
+			inbox_collection: z.string().min(1).max(100).default('Inbox')
 		})
 		.prefault({}),
 	gallery: z

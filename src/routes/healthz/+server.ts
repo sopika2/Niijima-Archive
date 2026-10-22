@@ -17,7 +17,10 @@ export const GET: RequestHandler = async () => {
 			status: database && media ? 'ok' : database ? 'degraded' : 'down',
 			version: app.version,
 			database,
-			media
+			media,
+			// Where files are kept; a Mementos outage doesn't fail the check (saves fall back to disk).
+			storage: app.storage.mode,
+			...(app.mementos ? { mementos: app.mementos.status().connection.state } : {})
 		},
 		{ status: database ? 200 : 503, headers: { 'cache-control': 'no-store' } }
 	);

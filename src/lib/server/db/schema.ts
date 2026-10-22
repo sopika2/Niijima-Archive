@@ -9,8 +9,8 @@ import {
 import { newId } from '../ids.ts';
 
 /*
- * Five tables. Timestamps are ISO 8601 text in UTC. Files live on disk under data/media; the
- * database only knows their relative paths. Full-text search (items_fts) is an FTS5 table kept
+ * Six tables. Timestamps are ISO 8601 text in UTC. Files live on Zipline (Mementos) when it is
+ * set up, otherwise on disk under data/media; thumbnails always on disk under data/thumbs. Full-text search (items_fts) is an FTS5 table kept
  * in step by triggers, created in a hand-written migration because Drizzle can't describe it.
  */
 
@@ -142,12 +142,38 @@ export const media = sqliteTable(
 		remoteUrl: text('remote_url'),
 		/** The tweet video's still frame, downloaded as the thumbnail. */
 		posterUrl: text('poster_url'),
-		/** The link on Mementos (Zipline), once uploaded there. */
+		/** The public link on Mementos (Zipline), for sharing. */
 		mirrorUrl: text('mirror_url'),
+		/** The file's id on Zipline when Zipline stores it; then `path` is usually null. */
+		ziplineId: text('zipline_id'),
+		/** Its name on Zipline (the part after /u/), for the raw route and older Ziplines. */
+		ziplineName: text('zipline_name'),
+		/** When the sync noticed the file was deleted on Zipline. Cleared if it comes back. */
+		ziplineGoneAt: text('zipline_gone_at'),
+		/**
+		 * Keep the file on the Archive's disk: Zipline's copy didn't match (Zipline stripped GPS
+		 * data, say), so the original is never removed. `storageNote` says why.
+		 */
+		keepLocal: integer('keep_local', { mode: 'boolean' }).notNull().default(false),
+		/** The last upload problem, or why the file stays local. */
+		storageNote: text('storage_note'),
 		createdAt: createdAt()
 	},
-	(table) => [index('media_item_idx').on(table.itemId, table.position)]
+	(table) => [
+		index('media_item_idx').on(table.itemId, table.position),
+		index('media_zipline_idx').on(table.ziplineId)
+	]
 );
+
+/**
+ * Zipline files the sync must not import: ones whose item she deleted but kept on Mementos, and
+ * files that turned out not to be pictures or videos.
+ */
+export const ziplineIgnored = sqliteTable('zipline_ignored', {
+	ziplineId: text('zipline_id').primaryKey(),
+	reason: text('reason').notNull(),
+	createdAt: createdAt()
+});
 
 export type CollectionRow = typeof collections.$inferSelect;
 export type ItemRow = typeof items.$inferSelect;

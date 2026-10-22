@@ -60,11 +60,17 @@ export const actions: Actions = {
 		const moved = moveItems(app.archive.db, ids(form), collectionId, scope);
 		return { message: `Moved ${moved} item${moved === 1 ? '' : 's'}.` };
 	},
-	/** Bulk: delete the selected items and their files. */
+	/** Bulk: delete the selected items and their files (on Mementos too, if she ticked it). */
 	delete: async ({ request, locals }) => {
 		const app = await runtime();
 		const form = await request.formData();
-		const deleted = await removeItems(app.services, ids(form), scopeOf(locals));
-		return { message: `Deleted ${deleted} item${deleted === 1 ? '' : 's'}.` };
+		const alsoZipline = form.get('zipline') === '1';
+		const { deleted, ziplineFailed } = await removeItems(app.services, ids(form), scopeOf(locals), {
+			alsoZipline
+		});
+		const where = alsoZipline ? ' here and on Mementos' : '';
+		const failed =
+			ziplineFailed > 0 ? ` ${ziplineFailed} file(s) couldn't be deleted on Mementos.` : '';
+		return { message: `Deleted ${deleted} item${deleted === 1 ? '' : 's'}${where}.${failed}` };
 	}
 };

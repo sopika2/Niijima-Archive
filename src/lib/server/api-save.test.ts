@@ -8,6 +8,7 @@ import { openDatabase } from './db/client.ts';
 import { findCollectionByName, seedCollections } from './db/collections.ts';
 import { countItems, getItem } from './db/items.ts';
 import { bearerAllowed, originAllowed } from './guard.ts';
+import { Storage } from './media/storage.ts';
 import { MediaStore } from './media/store.ts';
 import type { SaveServices } from './save.ts';
 
@@ -41,7 +42,7 @@ function setup(token: string | null = TOKEN) {
 	seedCollections(archive.db);
 	const services: SaveServices = {
 		db: archive.db,
-		store: new MediaStore(join(root, String(Math.random()).slice(2)), 64),
+		store: new Storage({ local: new MediaStore(join(root, String(Math.random()).slice(2)), 64) }),
 		maxUploadBytes: 1e6,
 		maxTweetMediaBytes: 1e6,
 		timeoutMs: 1000,

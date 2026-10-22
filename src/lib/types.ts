@@ -13,7 +13,7 @@ export const OWNER_LABELS: Record<Owner, string> = {
 export interface MediaView {
 	readonly id: string;
 	readonly kind: MediaKind;
-	/** The stored file, or null when its download failed. */
+	/** The stored file, or null when its download failed (or Mementos lost it). */
 	readonly url: string | null;
 	/** A still WebP for the grid, or null (a video without a poster). */
 	readonly thumb: string | null;
@@ -22,7 +22,10 @@ export interface MediaView {
 	readonly height: number | null;
 	readonly durationMs: number | null;
 	readonly alt: string | null;
+	/** The public Mementos (Zipline) link, to share. */
 	readonly mirrorUrl: string | null;
+	/** Its file was deleted on Mementos. */
+	readonly gone: boolean;
 }
 
 export interface TweetView {

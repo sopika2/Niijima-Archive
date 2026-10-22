@@ -69,3 +69,8 @@ export const MIME_BY_EXT: Readonly<Record<string, string>> = {
 	mov: 'video/quicktime',
 	webm: 'video/webm'
 };
+
+/** Extensions by content type, for naming files that only Zipline has. */
+export const EXT_BY_MIME: Readonly<Record<string, string>> = Object.fromEntries(
+	Object.entries(MIME_BY_EXT).map(([ext, mime]) => [mime, ext])
+);

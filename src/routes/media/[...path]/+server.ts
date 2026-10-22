@@ -10,7 +10,7 @@ import type { RequestHandler } from './$types';
  */
 export const GET: RequestHandler = async ({ params, request }) => {
 	const app = await runtime();
-	const path = app.store.absolute(params.path);
+	const path = await app.store.locate(params.path);
 	if (!path) error(404, 'Not found');
 	const ext = params.path.split('.').pop()!;
 	const response = await serveFile(path, request, {
