@@ -1,0 +1,64 @@
+{
+	"name": "niijima-archive",
+	"private": true,
+	"version": "0.1.0",
+	"description": "Niijima Archive: the Thieves Den. A private collection of saved tweets and images for the Niijima Network.",
+	"type": "module",
+	"packageManager": "pnpm@10.28.0",
+	"engines": {
+		"node": ">=22.18"
+	},
+	"scripts": {
+		"dev": "vite dev --port 5183 --strictPort",
+		"build": "vite build",
+		"preview": "vite preview",
+		"start": "node build",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"db:generate": "drizzle-kit generate",
+		"icons": "node scripts/icons.ts",
+		"verify": "pnpm lint && pnpm check && pnpm test && pnpm build"
+	},
+	"dependencies": {
+		"better-sqlite3": "^13.0.3",
+		"sharp": "^0.35.5"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@niijima/design": "github:sopika2/Niijima-Design#ab9ae651e5a280f23565f11fb1975ff25d78304b",
+		"@sveltejs/adapter-node": "^5.5.7",
+		"@sveltejs/kit": "^2.70.3",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
+		"@types/better-sqlite3": "^9.6.0",
+		"@types/node": "^22.19.0",
+		"@types/yazl": "^3.3.1",
+		"drizzle-kit": "^0.31.11",
+		"drizzle-orm": "^0.45.4",
+		"eslint": "^10.13.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.23.1",
+		"globals": "^17.13.0",
+		"prettier": "^3.9.10",
+		"prettier-plugin-svelte": "^4.1.1",
+		"svelte": "^5.57.2",
+		"svelte-check": "^4.7.7",
+		"typescript": "~6.0.3",
+		"typescript-eslint": "^8.71.2",
+		"vite": "^8.3.5",
+		"vitest": "^4.1.12",
+		"yaml": "^2.9.1",
+		"yazl": "^3.3.1",
+		"zod": "^4.1.12"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3",
+			"esbuild",
+			"sharp"
+		]
+	}
+}

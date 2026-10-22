@@ -1,0 +1,50 @@
+{
+ "allSameType": true,
+ "article": null,
+ "combinedMediaUrl": null,
+ "communityNote": null,
+ "conversationID": "1724489664562659673",
+ "date": "Tue Nov 14 18:09:10 +0000 2023",
+ "date_epoch": 1699985350,
+ "fetched_on": 1792604685,
+ "hasMedia": true,
+ "hashtags": [
+  "NationalPickleDay"
+ ],
+ "lang": "qme",
+ "likes": 1379,
+ "mediaURLs": [
+  "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4"
+ ],
+ "media_extended": [
+  {
+   "altText": null,
+   "duration_millis": 0,
+   "id_str": "1724489641200435200",
+   "size": {
+    "height": 270,
+    "width": 480
+   },
+   "thumbnail_url": "https://pbs.twimg.com/tweet_video_thumb/F-6eMSKXwAAWfLJ.jpg",
+   "type": "gif",
+   "url": "https://video.twimg.com/tweet_video/F-6eMSKXwAAWfLJ.mp4"
+  }
+ ],
+ "pollData": null,
+ "possibly_sensitive": false,
+ "qrt": null,
+ "qrtURL": null,
+ "replies": 60,
+ "replyingTo": null,
+ "replyingToID": null,
+ "retweet": null,
+ "retweetURL": null,
+ "retweets": 210,
+ "text": "#NationalPickleDay",
+ "translation": null,
+ "tweetID": "1724489664562659673",
+ "tweetURL": "https://twitter.com/SpongeBob/status/1724489664562659673",
+ "user_name": "SpongeBob",
+ "user_profile_image_url": "https://pbs.twimg.com/profile_images/2077388067380314112/_lLZbiKp_normal.jpg",
+ "user_screen_name": "SpongeBob"
+}

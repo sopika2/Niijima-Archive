@@ -1,0 +1,428 @@
+{
+ "code": 200,
+ "message": "OK",
+ "tweet": {
+  "url": "https://x.com/duolingo/status/2112667725805822220",
+  "id": "2112667725805822220",
+  "text": "ima start a streak im a streakstarter",
+  "raw_text": {
+   "text": "ima start a streak im a streakstarter https://t.co/OJfCoI5arE",
+   "display_text_range": [
+    0,
+    37
+   ],
+   "facets": [
+    {
+     "type": "media",
+     "indices": [
+      38,
+      61
+     ],
+     "id": "2112667720453955586",
+     "display": "pic.x.com/OJfCoI5arE",
+     "original": "https://t.co/OJfCoI5arE",
+     "replacement": "https://x.com/duolingo/status/2112667725805822220/photo/1"
+    },
+    {
+     "type": "media",
+     "indices": [
+      38,
+      61
+     ],
+     "id": "2112667720357490688",
+     "display": "pic.x.com/OJfCoI5arE",
+     "original": "https://t.co/OJfCoI5arE",
+     "replacement": "https://x.com/duolingo/status/2112667725805822220/photo/1"
+    },
+    {
+     "type": "media",
+     "indices": [
+      38,
+      61
+     ],
+     "id": "2112667720399323137",
+     "display": "pic.x.com/OJfCoI5arE",
+     "original": "https://t.co/OJfCoI5arE",
+     "replacement": "https://x.com/duolingo/status/2112667725805822220/photo/1"
+    },
+    {
+     "type": "media",
+     "indices": [
+      38,
+      61
+     ],
+     "id": "2112667720411975680",
+     "display": "pic.x.com/OJfCoI5arE",
+     "original": "https://t.co/OJfCoI5arE",
+     "replacement": "https://x.com/duolingo/status/2112667725805822220/photo/1"
+    }
+   ]
+  },
+  "author": {
+   "screen_name": "duolingo",
+   "url": "https://x.com/duolingo",
+   "id": "107238136",
+   "followers": 1048831,
+   "following": 509,
+   "likes": 24830,
+   "media_count": 2158,
+   "name": "Duolingo",
+   "description": "educated girl autumn \ud83c\udf83\ud83e\udd89",
+   "raw_description": {
+    "text": "educated girl autumn \ud83c\udf83\ud83e\udd89",
+    "facets": []
+   },
+   "location": "",
+   "banner_url": "https://pbs.twimg.com/profile_banners/107238136/1791383788",
+   "avatar_url": "https://pbs.twimg.com/profile_images/2107841641071497216/55AdYa3Z_200x200.jpg",
+   "joined": "Thu Jan 21 23:15:30 +0000 2010",
+   "protected": false,
+   "website": {
+    "url": "http://duolingo.com",
+    "display_url": "duolingo.com"
+   },
+   "verification": {
+    "verified": true,
+    "verified_at": null,
+    "type": "organization"
+   },
+   "avatar_color": null
+  },
+  "replies": 36,
+  "retweets": 383,
+  "likes": 2637,
+  "bookmarks": 158,
+  "quotes": 23,
+  "created_at": "Tue Oct 20 22:10:11 +0000 2026",
+  "created_timestamp": 1792534211,
+  "possibly_sensitive": false,
+  "views": 58328,
+  "is_note_tweet": false,
+  "community_note": null,
+  "lang": "en",
+  "replying_to": null,
+  "replying_to_status": null,
+  "media": {
+   "all": [
+    {
+     "type": "photo",
+     "id": "2112667720453955586",
+     "url": "https://pbs.twimg.com/media/HVG0GS4XoAIgZHk.jpg?name=orig",
+     "width": 1525,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720357490688",
+     "url": "https://pbs.twimg.com/media/HVG0GShXsAAfzCT.jpg?name=orig",
+     "width": 1526,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720399323137",
+     "url": "https://pbs.twimg.com/media/HVG0GSrWAAEJMN1.jpg?name=orig",
+     "width": 1536,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720411975680",
+     "url": "https://pbs.twimg.com/media/HVG0GSuXEAAAD55.jpg?name=orig",
+     "width": 1528,
+     "height": 2048
+    }
+   ],
+   "photos": [
+    {
+     "type": "photo",
+     "id": "2112667720453955586",
+     "url": "https://pbs.twimg.com/media/HVG0GS4XoAIgZHk.jpg?name=orig",
+     "width": 1525,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720357490688",
+     "url": "https://pbs.twimg.com/media/HVG0GShXsAAfzCT.jpg?name=orig",
+     "width": 1526,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720399323137",
+     "url": "https://pbs.twimg.com/media/HVG0GSrWAAEJMN1.jpg?name=orig",
+     "width": 1536,
+     "height": 2048
+    },
+    {
+     "type": "photo",
+     "id": "2112667720411975680",
+     "url": "https://pbs.twimg.com/media/HVG0GSuXEAAAD55.jpg?name=orig",
+     "width": 1528,
+     "height": 2048
+    }
+   ],
+   "mosaic": {
+    "type": "mosaic_photo",
+    "formats": {
+     "jpeg": "https://mosaic.fxtwitter.com/jpeg/2112667725805822220/HVG0GS4XoAIgZHk/HVG0GShXsAAfzCT/HVG0GSrWAAEJMN1/HVG0GSuXEAAAD55",
+     "webp": "https://mosaic.fxtwitter.com/webp/2112667725805822220/HVG0GS4XoAIgZHk/HVG0GShXsAAfzCT/HVG0GSrWAAEJMN1/HVG0GSuXEAAAD55"
+    }
+   }
+  },
+  "quote": {
+   "url": "https://x.com/KDA_MUSIC/status/2112002511729205311",
+   "id": "2112002511729205311",
+   "text": "Watch it burn.\n\n\u201cFIRESTARTER\u201d Music Video is out now // https://riot.com/FIRESTARTER-MV\n\n#KDA #FIRESTARTER #CALLINGALLBLADES",
+   "raw_text": {
+    "text": "Watch it burn.\n\n\u201cFIRESTARTER\u201d Music Video is out now // https://t.co/EpvKkgbVYF\n\n#KDA #FIRESTARTER #CALLINGALLBLADES https://t.co/3W1SRkTR8X",
+    "display_text_range": [
+     0,
+     116
+    ],
+    "facets": [
+     {
+      "type": "url",
+      "indices": [
+       56,
+       79
+      ],
+      "original": "https://t.co/EpvKkgbVYF",
+      "replacement": "https://riot.com/FIRESTARTER-MV",
+      "display": "riot.com/FIRESTARTER-MV"
+     },
+     {
+      "type": "hashtag",
+      "indices": [
+       81,
+       85
+      ],
+      "original": "KDA"
+     },
+     {
+      "type": "hashtag",
+      "indices": [
+       86,
+       98
+      ],
+      "original": "FIRESTARTER"
+     },
+     {
+      "type": "hashtag",
+      "indices": [
+       99,
+       116
+      ],
+      "original": "CALLINGALLBLADES"
+     },
+     {
+      "type": "media",
+      "indices": [
+       117,
+       140
+      ],
+      "id": "2112001520682323968",
+      "display": "pic.x.com/3W1SRkTR8X",
+      "original": "https://t.co/3W1SRkTR8X",
+      "replacement": "https://x.com/KDA_MUSIC/status/2112002511729205311/video/1"
+     }
+    ]
+   },
+   "author": {
+    "screen_name": "KDA_MUSIC",
+    "url": "https://x.com/KDA_MUSIC",
+    "id": "1289225491233284097",
+    "followers": 391818,
+    "following": 14,
+    "likes": 172,
+    "media_count": 129,
+    "name": "K/DA",
+    "description": "FIRESTARTER MUSIC VIDEO OUT NOW",
+    "raw_description": {
+     "text": "FIRESTARTER MUSIC VIDEO OUT NOW",
+     "facets": []
+    },
+    "location": "",
+    "banner_url": "https://pbs.twimg.com/profile_banners/1289225491233284097/1792375239",
+    "avatar_url": "https://pbs.twimg.com/profile_images/2112000938013839360/Ck-LE_Nl_200x200.jpg",
+    "joined": "Fri Jul 31 15:45:04 +0000 2020",
+    "protected": false,
+    "website": {
+     "url": "http://linktr.ee/kda_music",
+     "display_url": "linktr.ee/kda_music"
+    },
+    "verification": {
+     "verified": true,
+     "verified_at": null,
+     "type": "individual"
+    },
+    "avatar_color": null
+   },
+   "replies": 589,
+   "retweets": 16516,
+   "likes": 59597,
+   "bookmarks": 4778,
+   "quotes": 4199,
+   "created_at": "Mon Oct 19 02:06:52 +0000 2026",
+   "created_timestamp": 1792375612,
+   "possibly_sensitive": false,
+   "views": 7302796,
+   "is_note_tweet": false,
+   "community_note": null,
+   "lang": "en",
+   "replying_to": null,
+   "replying_to_status": null,
+   "media": {
+    "all": [
+     {
+      "id": "2112001520682323968",
+      "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+      "thumbnail_url": "https://pbs.twimg.com/amplify_video_thumb/2112001520682323968/img/OsTLZEgXfPfmbyME.jpg",
+      "duration": 58.625,
+      "width": 1080,
+      "height": 1080,
+      "format": "video/mp4",
+      "type": "video",
+      "formats": [
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/pl/C0tuPMjXFgcvSd-g.m3u8?tag=29&v=e05",
+        "container": "m3u8"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/320x320/EUDZlkdaJKPp2Dx8.mp4?tag=29",
+        "bitrate": 432000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/540x540/-XNEl2TbDujFuiC7.mp4?tag=29",
+        "bitrate": 832000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/720x720/IFzBSRwNwzeD8zQl.mp4?tag=29",
+        "bitrate": 1280000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+        "bitrate": 8768000,
+        "container": "mp4",
+        "codec": "h264"
+       }
+      ],
+      "publisher": null,
+      "variants": [
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/pl/C0tuPMjXFgcvSd-g.m3u8?tag=29&v=e05",
+        "bitrate": 0,
+        "content_type": "application/x-mpegURL"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/320x320/EUDZlkdaJKPp2Dx8.mp4?tag=29",
+        "bitrate": 432000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/540x540/-XNEl2TbDujFuiC7.mp4?tag=29",
+        "bitrate": 832000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/720x720/IFzBSRwNwzeD8zQl.mp4?tag=29",
+        "bitrate": 1280000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+        "bitrate": 8768000,
+        "content_type": "video/mp4"
+       }
+      ]
+     }
+    ],
+    "videos": [
+     {
+      "id": "2112001520682323968",
+      "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+      "thumbnail_url": "https://pbs.twimg.com/amplify_video_thumb/2112001520682323968/img/OsTLZEgXfPfmbyME.jpg",
+      "duration": 58.625,
+      "width": 1080,
+      "height": 1080,
+      "format": "video/mp4",
+      "type": "video",
+      "formats": [
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/pl/C0tuPMjXFgcvSd-g.m3u8?tag=29&v=e05",
+        "container": "m3u8"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/320x320/EUDZlkdaJKPp2Dx8.mp4?tag=29",
+        "bitrate": 432000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/540x540/-XNEl2TbDujFuiC7.mp4?tag=29",
+        "bitrate": 832000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/720x720/IFzBSRwNwzeD8zQl.mp4?tag=29",
+        "bitrate": 1280000,
+        "container": "mp4",
+        "codec": "h264"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+        "bitrate": 8768000,
+        "container": "mp4",
+        "codec": "h264"
+       }
+      ],
+      "publisher": null,
+      "variants": [
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/pl/C0tuPMjXFgcvSd-g.m3u8?tag=29&v=e05",
+        "bitrate": 0,
+        "content_type": "application/x-mpegURL"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/320x320/EUDZlkdaJKPp2Dx8.mp4?tag=29",
+        "bitrate": 432000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/540x540/-XNEl2TbDujFuiC7.mp4?tag=29",
+        "bitrate": 832000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/720x720/IFzBSRwNwzeD8zQl.mp4?tag=29",
+        "bitrate": 1280000,
+        "content_type": "video/mp4"
+       },
+       {
+        "url": "https://video.twimg.com/amplify_video/2112001520682323968/vid/avc1/1080x1080/V-S3nRn3fvdWmxM0.mp4?tag=29",
+        "bitrate": 8768000,
+        "content_type": "video/mp4"
+       }
+      ]
+     }
+    ]
+   },
+   "twitter_card": "player",
+   "color": null,
+   "provider": "twitter",
+   "reposted_by": null
+  },
+  "twitter_card": "summary_large_image",
+  "color": null,
+  "provider": "twitter",
+  "reposted_by": null
+ }
+}

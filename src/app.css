@@ -1,0 +1,213 @@
+/*
+ * The Archive's own layer on top of @niijima/design: page frame, form controls and a few
+ * helpers. Colours only ever come from the --nj-* tokens, so the persona switch re-colours it.
+ */
+:root {
+	--gutter: 16px;
+	color-scheme: dark;
+}
+@media (min-width: 900px) {
+	:root {
+		--gutter: clamp(24px, 4vw, 56px);
+	}
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	background: var(--nj-field);
+	transition: background-color var(--nj-normal);
+}
+body,
+body.nj {
+	background-color: var(--nj-field);
+	font: 500 16px/1.45 var(--nj-font-body);
+	/* A dotted field behind everything, like the landing page's screens. */
+	background-image: radial-gradient(var(--nj-dot) 30%, transparent 34%);
+	background-size: 13px 13px;
+	background-attachment: fixed;
+}
+
+a {
+	color: var(--nj-hi);
+}
+img,
+video {
+	max-width: 100%;
+}
+
+/* ── Headings: a ransom title with a small tilted plate under it ── */
+.heading {
+	display: grid;
+	justify-items: start;
+	gap: 10px;
+	margin: 18px 0 24px;
+}
+.heading .nj-ransom {
+	--nj-ransom-size: clamp(32px, 8vw, 76px);
+	transform: rotate(-3deg);
+	transform-origin: 0 100%;
+}
+
+/* ── Panels: paper cards for forms ── */
+.panel {
+	position: relative;
+	padding: 22px 18px 20px;
+	background: var(--nj-paper);
+	color: var(--nj-ink);
+	clip-path: polygon(0 1%, 100% 0, 99.4% 100%, 0.4% 99%);
+	box-shadow: 0 0 0 transparent;
+}
+.panel--ink {
+	background: var(--nj-surface);
+	color: var(--nj-text);
+	clip-path: none;
+	border-left: 6px solid var(--nj-accent);
+}
+.panel h2,
+.panel h3 {
+	margin: 0 0 14px;
+	font: 400 26px/1 var(--nj-font-display);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* ── Fields ── */
+.field {
+	display: grid;
+	gap: 5px;
+	min-width: 0;
+}
+.field > span,
+.field > label,
+.label {
+	font: 700 12px/1.2 var(--nj-font-body);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+.hint {
+	margin: 0;
+	font: 500 13px/1.35 var(--nj-font-body);
+	opacity: 0.75;
+}
+.input,
+.panel input[type='text'],
+.panel input[type='url'],
+.panel input[type='search'],
+.panel textarea,
+.panel select {
+	width: 100%;
+	min-height: 44px;
+	padding: 9px 11px;
+	border: 2px solid var(--nj-ink);
+	border-radius: 0;
+	background: var(--nj-paper);
+	color: var(--nj-ink);
+	font: 500 16px/1.35 var(--nj-font-body);
+}
+.panel textarea {
+	min-height: 96px;
+	resize: vertical;
+}
+.panel input:focus-visible,
+.panel textarea:focus-visible,
+.panel select:focus-visible {
+	outline: 3px solid var(--nj-focus);
+	outline-offset: 1px;
+	box-shadow: 4px 4px 0 var(--nj-accent);
+}
+.grid-2 {
+	display: grid;
+	gap: 14px;
+}
+@media (min-width: 640px) {
+	.grid-2 {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+.stack {
+	display: grid;
+	gap: 14px;
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 20px;
+}
+.actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 18px 22px;
+	margin-top: 8px;
+	padding-right: 10px;
+}
+
+/* Buttons from the design package, a little tighter on phones and always 44px tall. */
+.nj-btn {
+	min-height: 44px;
+}
+@media (max-width: 480px) {
+	.nj-btn {
+		font-size: 19px;
+		padding: 12px 22px 10px 18px;
+	}
+}
+/* A plain text button for quiet actions: "Discard", "Clear". */
+.quiet {
+	min-height: 44px;
+	padding: 6px 4px;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: 700 14px/1 var(--nj-font-body);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+	cursor: pointer;
+}
+.danger {
+	color: var(--nj-red);
+}
+
+/* ── Notices ── */
+.notice {
+	margin: 0 0 18px;
+	padding: 10px 14px 9px;
+	background: var(--nj-ink);
+	color: var(--nj-paper);
+	border-left: 6px solid var(--nj-hi);
+	font: 600 15px/1.4 var(--nj-font-body);
+	transform: rotate(-0.6deg);
+}
+.notice--warn {
+	border-left-color: var(--nj-sae-gold);
+}
+.notice--bad {
+	border-left-color: var(--nj-accent);
+}
+.notice a {
+	color: var(--nj-hi);
+	font-weight: 700;
+}
+
+/* A small tag for what belongs to the other sister or to both. */
+.owner-tag {
+	display: inline-block;
+	padding: 3px 6px 2px;
+	background: var(--nj-ink);
+	color: var(--nj-hi-2);
+	font: 700 10px/1 var(--nj-font-body);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	transform: rotate(-4deg);
+}
+.owner-tag[data-owner='sae'] {
+	color: var(--nj-sae-gold);
+}
+.owner-tag[data-owner='makoto'] {
+	color: var(--nj-makoto-cyan);
+}

@@ -1,0 +1,59 @@
+{
+ "allSameType": true,
+ "article": null,
+ "combinedMediaUrl": "https://vxtwitter.com/rendercombined.jpg?imgs=https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg,https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg",
+ "communityNote": null,
+ "conversationID": "2108285056170996122",
+ "date": "Thu Oct 08 19:55:02 +0000 2026",
+ "date_epoch": 1791489302,
+ "fetched_on": 1792604672,
+ "hasMedia": true,
+ "hashtags": [],
+ "lang": "en",
+ "likes": 6444,
+ "mediaURLs": [
+  "https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg",
+  "https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg"
+ ],
+ "media_extended": [
+  {
+   "altText": "Crew-12's spacecraft \u2014 attached to four large parachutes \u2014 descending through a cloudy daytime sky.",
+   "id_str": "2108285048789069824",
+   "size": {
+    "height": 1365,
+    "width": 2048
+   },
+   "thumbnail_url": "https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg",
+   "type": "image",
+   "url": "https://pbs.twimg.com/media/HUIiFOpW8AABTfc.jpg"
+  },
+  {
+   "altText": "The members of Crew-12 inside of their spacecraft post-splashdown. They are strapped into their seats, smiling and waving.",
+   "id_str": "2108285052350029824",
+   "size": {
+    "height": 1365,
+    "width": 2048
+   },
+   "thumbnail_url": "https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg",
+   "type": "image",
+   "url": "https://pbs.twimg.com/media/HUIiFb6W4AAwNM7.jpg"
+  }
+ ],
+ "pollData": null,
+ "possibly_sensitive": false,
+ "qrt": null,
+ "qrtURL": null,
+ "replies": 195,
+ "replyingTo": null,
+ "replyingToID": null,
+ "retweet": null,
+ "retweetURL": null,
+ "retweets": 829,
+ "text": "Welcome home!\n\nCrew-12 splashed down in the Pacific on Thursday, Oct. 8. Their 237-day mission aboard the @Space_Station included research into medicine, quantum science, and 3D-printing with metal in low Earth orbit. https://go.nasa.gov/4elVwzA",
+ "translation": null,
+ "tweetID": "2108285056170996122",
+ "tweetURL": "https://twitter.com/NASA/status/2108285056170996122",
+ "user_name": "NASA",
+ "user_profile_image_url": "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_normal.jpg",
+ "user_screen_name": "NASA"
+}
