@@ -1,0 +1,44 @@
+{
+	"page": [
+		{
+			"id": "cmgx2k1hz0003s60l8u6v2f1a",
+			"createdAt": "2026-10-20T08:15:42.120Z",
+			"updatedAt": "2026-10-20T08:15:42.120Z",
+			"deletesAt": null,
+			"name": "kQ3x9a.png",
+			"originalName": null,
+			"size": 48213,
+			"type": "image/png",
+			"views": 3,
+			"maxViews": null,
+			"favorite": false,
+			"password": false,
+			"anonymous": false,
+			"folderId": "cmgx2jz7e0001s60lq0a1b2c3",
+			"thumbnail": null,
+			"tags": [],
+			"url": "/u/kQ3x9a.png"
+		},
+		{
+			"id": "cmgx3m9pq0007s60l1d4e5f6g",
+			"createdAt": "2026-10-21T19:02:11.001Z",
+			"updatedAt": "2026-10-21T19:02:11.001Z",
+			"deletesAt": null,
+			"name": "beach clip.mp4",
+			"originalName": "beach clip.mp4",
+			"size": 7340032,
+			"type": "video/mp4",
+			"views": 0,
+			"maxViews": null,
+			"favorite": true,
+			"password": true,
+			"anonymous": false,
+			"folderId": null,
+			"thumbnail": { "path": ".thumbnail.cmgx3m9pq0007s60l1d4e5f6g.jpg" },
+			"tags": [{ "id": "t1", "name": "holiday", "color": "#ff0000" }],
+			"url": "/u/beach%20clip.mp4"
+		}
+	],
+	"total": 3,
+	"pages": 2
+}

@@ -12,7 +12,8 @@ import {
 	type MediaKind,
 	type MediaRow,
 	type Owner,
-	type QuotedTweet
+	type QuotedTweet,
+	ziplineIgnored
 } from './schema.ts';
 import { ownedBy, type Scope } from './scope.ts';
 import { ftsQuery } from './search.ts';
@@ -172,7 +173,7 @@ function toViews(db: Db, rows: Array<ItemRow & { collectionName: string | null }
 	const tags = db.select().from(itemTags).where(inArray(itemTags.itemId, ids)).all();
 	return rows.map((row) => {
 		const own = files.filter((file) => file.itemId === row.id).map(mediaView);
-		const missing = files.some((file) => file.itemId === row.id && !file.path);
+		const missing = files.some((file) => file.itemId === row.id && !file.path && !file.ziplineId);
 		return {
 			id: row.id,
 			kind: row.kind,
@@ -208,11 +209,18 @@ function toViews(db: Db, rows: Array<ItemRow & { collectionName: string | null }
 	});
 }
 
+/** Where the full file is served: from disk, or streamed from Zipline through /file/<id>. */
+export function fileUrl(row: Pick<MediaRow, 'id' | 'path' | 'ziplineId' | 'ziplineGoneAt'>) {
+	if (row.path) return mediaUrl(row.path);
+	return row.ziplineId && !row.ziplineGoneAt ? `/file/${row.id}` : null;
+}
+
 function mediaView(row: MediaRow): MediaView {
 	return {
 		id: row.id,
 		kind: row.kind,
-		url: mediaUrl(row.path),
+		url: fileUrl(row),
+		gone: Boolean(row.ziplineGoneAt),
 		thumb: mediaUrl(row.thumbPath),
 		mime: row.mime,
 		width: row.width,
@@ -346,6 +354,11 @@ export interface NewMedia {
 	readonly alt?: string | null;
 	readonly remoteUrl?: string | null;
 	readonly posterUrl?: string | null;
+	readonly mirrorUrl?: string | null;
+	readonly ziplineId?: string | null;
+	readonly ziplineName?: string | null;
+	readonly keepLocal?: boolean;
+	readonly storageNote?: string | null;
 	/** Reuse an id chosen before the file was written (it names the file). */
 	readonly id?: string;
 }
@@ -357,21 +370,21 @@ export function addMedia(db: Db, input: NewMedia): string {
 export function updateMedia(
 	db: Db,
 	id: string,
-	patch: Partial<Omit<NewMedia, 'itemId' | 'id'>> & { mirrorUrl?: string | null }
+	patch: Partial<Omit<NewMedia, 'itemId' | 'id'>> & { ziplineGoneAt?: string | null }
 ): void {
 	db.update(media).set(patch).where(eq(media.id, id)).run();
 }
 
 /**
  * Deletes items the scope can see. Returns the stored files (relative paths) that now belong
- * to nothing, for the caller to remove from disk.
+ * to nothing, for the caller to remove from disk, and their Zipline ids.
  */
 export function deleteItems(
 	db: Db,
 	ids: readonly string[],
 	scope: Scope | null
-): { deleted: number; files: string[] } {
-	if (ids.length === 0) return { deleted: 0, files: [] };
+): { deleted: number; files: string[]; zipline: string[] } {
+	if (ids.length === 0) return { deleted: 0, files: [], zipline: [] };
 	return db.transaction((tx) => {
 		const visible = tx
 			.select({ id: items.id })
@@ -379,17 +392,28 @@ export function deleteItems(
 			.where(and(inArray(items.id, [...ids]), ownedBy(items.owner, scope)))
 			.all()
 			.map((row) => row.id);
-		if (visible.length === 0) return { deleted: 0, files: [] };
-		const files = tx
-			.select({ path: media.path, thumb: media.thumbPath })
+		if (visible.length === 0) return { deleted: 0, files: [], zipline: [] };
+		const rows = tx
+			.select({ path: media.path, thumb: media.thumbPath, zipline: media.ziplineId })
 			.from(media)
 			.where(inArray(media.itemId, visible))
-			.all()
+			.all();
+		const files = rows
 			.flatMap((row) => [row.path, row.thumb])
 			.filter((path): path is string => Boolean(path));
+		const zipline = rows.map((row) => row.zipline).filter((id): id is string => Boolean(id));
 		tx.delete(items).where(inArray(items.id, visible)).run();
-		return { deleted: visible.length, files };
+		return { deleted: visible.length, files, zipline };
 	});
+}
+
+/** Zipline files the sync must leave alone from now on. */
+export function ignoreZipline(db: Db, ids: readonly string[], reason: string): void {
+	for (const id of ids)
+		db.insert(ziplineIgnored)
+			.values({ ziplineId: id, reason })
+			.onConflictDoUpdate({ target: ziplineIgnored.ziplineId, set: { reason } })
+			.run();
 }
 
 /** Moves the items the scope can see into a collection (null: unsorted). */

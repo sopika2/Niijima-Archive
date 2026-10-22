@@ -54,6 +54,10 @@
 			/>
 		{:else if first?.url && first.kind !== 'image'}
 			<video use:lazySrc={`${first.url}#t=0.1`} muted playsinline preload="metadata"></video>
+		{:else if first?.url}
+			<img src={first.url} alt={first.alt ?? ''} loading="lazy" decoding="async" />
+		{:else if first?.gone}
+			<span class="missing">Deleted on<br />Mementos</span>
 		{:else if first}
 			<span class="missing">File missing<br />Retry from the item</span>
 		{:else}
@@ -65,14 +69,15 @@
 	</span>
 
 	<span class="badges">
+		{#if item.owner !== persona}
+			<span class="owner owner-tag" data-owner={item.owner}>{OWNER_LABELS[item.owner]}</span>
+		{/if}
 		{#if item.kind === 'tweet'}<span class="badge badge--tweet">Tweet</span>{/if}
 		{#if badge}<span class="badge">{badge}</span>{/if}
 		{#if item.media.length > 1}<span class="badge">×{item.media.length}</span>{/if}
 		{#if item.needsRetry}<span class="badge badge--warn">Retry</span>{/if}
+		{#if item.media.some((file) => file.gone)}<span class="badge badge--warn">Gone</span>{/if}
 	</span>
-	{#if item.owner !== persona}
-		<span class="owner owner-tag" data-owner={item.owner}>{OWNER_LABELS[item.owner]}</span>
-	{/if}
 	{#if item.caption}<span class="caption">{item.caption}</span>{/if}
 	{#if selecting}<span class="check" aria-hidden="true">{selected ? '✓' : ''}</span><span
 			class="nj-sr">{selected ? 'Selected' : 'Not selected'}</span
@@ -149,8 +154,13 @@
 		position: absolute;
 		top: 6px;
 		right: 6px;
+		left: 6px;
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		align-items: flex-start;
 		gap: 4px;
+		pointer-events: none;
 	}
 	.badge {
 		padding: 3px 6px 2px;
@@ -170,9 +180,7 @@
 		color: var(--nj-ink);
 	}
 	.owner {
-		position: absolute;
-		top: 6px;
-		left: 6px;
+		margin-right: auto;
 	}
 	.caption {
 		position: absolute;

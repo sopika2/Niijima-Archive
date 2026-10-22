@@ -77,6 +77,17 @@ export const configSchema = z.strictObject({
 			thumb_width: z.number().int().min(160).max(1600).default(480)
 		})
 		.prefault({}),
+	/** Mementos (Zipline) as the storage, when ZIPLINE_URL and ZIPLINE_TOKEN are set in .env. */
+	zipline: z
+		.strictObject({
+			/** How often her own Zipline uploads are brought in, in minutes. */
+			sync_minutes: z.number().int().min(1).max(1440).default(5),
+			/** The Zipline folder the Archive's files go in; "" for none. */
+			folder: z.string().max(100).default('Archive'),
+			/** The collection her own Zipline uploads appear in. */
+			inbox_collection: z.string().min(1).max(100).default('Inbox')
+		})
+		.prefault({}),
 	gallery: z
 		.strictObject({
 			/** Items loaded at a time while scrolling. */

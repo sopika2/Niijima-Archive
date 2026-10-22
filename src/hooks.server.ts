@@ -68,7 +68,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 				method === 'GET' &&
 				!event.isDataRequest &&
 				!path.startsWith('/api/') &&
-				!path.startsWith('/media/')
+				!path.startsWith('/media/') &&
+				!path.startsWith('/file/')
 			) {
 				const target = path + event.url.search;
 				const location = target === '/' ? '/signin' : `/signin?next=${encodeURIComponent(target)}`;

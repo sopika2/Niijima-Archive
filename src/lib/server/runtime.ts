@@ -7,9 +7,11 @@ import { openDatabase, type Archive } from './db/client.ts';
 import { seedCollections } from './db/collections.ts';
 import { Inbox } from './inbox.ts';
 import { log, logError } from './log.ts';
+import { Storage } from './media/storage.ts';
 import { MediaStore } from './media/store.ts';
+import { Mementos } from './mementos.ts';
 import type { SaveServices } from './save.ts';
-import type { Zipline } from './zipline.ts';
+import { Zipline } from './zipline.ts';
 
 export interface Runtime {
 	readonly version: string;
@@ -18,6 +20,8 @@ export interface Runtime {
 	readonly paths: { readonly config: string; readonly data: string; readonly assets: string };
 	readonly archive: Archive;
 	readonly store: MediaStore;
+	/** Where saved files go: Zipline when it is set up, the disk otherwise. */
+	readonly storage: Storage;
 	readonly inbox: Inbox;
 	readonly access: AccessGate;
 	/** The origins form posts may come from: this site as the browser sees it. */
@@ -25,6 +29,8 @@ export interface Runtime {
 	readonly publicUrl: string | null;
 	readonly saveToken: string | null;
 	readonly zipline: Zipline | null;
+	/** The migration and sync with Zipline; null without it. */
+	readonly mementos: Mementos | null;
 	readonly services: SaveServices;
 }
 
@@ -99,18 +105,31 @@ function accessGate(config: Config): AccessGate {
 	});
 }
 
+/** The Zipline address the Archive itself calls, when none is set: the container next door. */
+const ZIPLINE_INTERNAL_DEFAULT = 'http://zipline:3000';
+
+function webAddress(name: string, value: string): string {
+	try {
+		const parsed = new URL(value);
+		if (parsed.protocol === 'https:' || parsed.protocol === 'http:') return value;
+	} catch {
+		// reported below
+	}
+	throw new Error(`${name} must be a web address such as https://mementos.niijimasisters.com.`);
+}
+
 function ziplineFromEnv(): Zipline | null {
 	const url = optional(env.ZIPLINE_URL);
 	const token = optional(env.ZIPLINE_TOKEN);
 	if (!url || !token) return null;
-	try {
-		const parsed = new URL(url);
-		if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') throw new Error();
-	} catch {
-		log('boot', 'ZIPLINE_URL is not a web address; the Mementos links are off.');
-		return null;
-	}
-	return { url, token };
+	return new Zipline({
+		url: webAddress('ZIPLINE_URL', url),
+		internalUrl: webAddress(
+			'ZIPLINE_INTERNAL_URL',
+			optional(env.ZIPLINE_INTERNAL_URL) ?? ZIPLINE_INTERNAL_DEFAULT
+		),
+		token
+	});
 }
 
 async function boot(): Promise<Runtime> {
@@ -129,7 +148,9 @@ async function boot(): Promise<Runtime> {
 	const seeded = seedCollections(archive.db);
 	if (seeded > 0) log('boot', `created ${seeded} starting collections`);
 
-	const store = new MediaStore(join(data, 'media'), config.media.thumb_width);
+	const store = new MediaStore(join(data, 'media'), config.media.thumb_width, join(data, 'thumbs'));
+	const moved = await store.moveThumbs();
+	if (moved > 0) log('boot', `moved ${moved} thumbnail(s) to ${join(data, 'thumbs')}`);
 	const inbox = new Inbox(join(data, 'inbox'));
 	const sweep = () =>
 		inbox.sweep().then(
@@ -153,16 +174,36 @@ async function boot(): Promise<Runtime> {
 		.filter((value): value is string => Boolean(value))
 		.map((value) => new URL(value).origin);
 	const zipline = ziplineFromEnv();
+	const storage = new Storage({
+		local: store,
+		zipline,
+		folder: config.zipline.folder || null,
+		log: (message) => log('mementos', message)
+	});
+	const maxUploadBytes = config.media.max_upload_mb * 1e6;
+	const mementos = zipline
+		? new Mementos({
+				db: archive.db,
+				storage,
+				zipline,
+				syncMinutes: config.zipline.sync_minutes,
+				inbox: config.zipline.inbox_collection,
+				maxImportBytes: maxUploadBytes,
+				log: (message) => log('mementos', message)
+			})
+		: null;
+	mementos?.start();
 
 	process.once('sveltekit:shutdown', () => {
 		clearInterval(timer);
+		mementos?.stop();
 		archive.close();
 		log('boot', 'stopped');
 	});
 
 	log(
 		'boot',
-		`ready · data ${data} · access ${access.mode}${access.cookieDomain ? ` (cookie on ${access.cookieDomain})` : ''} · /api/save ${saveToken ? 'on' : 'off'} · Mementos ${zipline ? 'on' : 'off'}`
+		`ready · data ${data} · access ${access.mode}${access.cookieDomain ? ` (cookie on ${access.cookieDomain})` : ''} · /api/save ${saveToken ? 'on' : 'off'} · files on ${zipline ? `Mementos (${zipline.url} via ${zipline.internalUrl})` : 'disk'}`
 	);
 	if (access.mode === 'off')
 		log('boot', 'No sign-in (ACCESS_MODE=off): anyone who can reach this app gets in.');
@@ -174,16 +215,18 @@ async function boot(): Promise<Runtime> {
 		paths: { config: configPath, data, assets },
 		archive,
 		store,
+		storage,
 		inbox,
 		access,
 		origins,
 		publicUrl,
 		saveToken,
 		zipline,
+		mementos,
 		services: {
 			db: archive.db,
-			store,
-			maxUploadBytes: config.media.max_upload_mb * 1e6,
+			store: storage,
+			maxUploadBytes,
 			maxTweetMediaBytes: config.media.max_tweet_media_mb * 1e6,
 			timeoutMs: config.media.fetch_timeout_seconds * 1000,
 			log: (message) => log('fetch', message)

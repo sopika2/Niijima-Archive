@@ -9,6 +9,7 @@
 	let { data, form }: PageProps = $props();
 	const item = $derived(data.item);
 	const first = $derived(item.media[0] ?? null);
+	const onMementos = $derived(data.mementos && item.media.some((file) => file.mirrorUrl));
 </script>
 
 <svelte:head>
@@ -94,10 +95,23 @@
 			<form
 				method="POST"
 				action="?/delete"
-				use:enhance={({ cancel }) => {
-					if (!confirm('Delete this item and its files? This cannot be undone.')) cancel();
+				class="delete"
+				use:enhance={({ formData, cancel }) => {
+					const there = formData.get('zipline') === '1';
+					const question = there
+						? 'Delete this item here AND its files on Mementos? This cannot be undone.'
+						: onMementos
+							? 'Delete this item? Its files stay on Mementos.'
+							: 'Delete this item and its files? This cannot be undone.';
+					if (!confirm(question)) cancel();
 				}}
 			>
+				{#if onMementos}
+					<label class="check">
+						<input type="checkbox" name="zipline" value="1" />
+						<span>Also delete on Mementos</span>
+					</label>
+				{/if}
 				<button class="quiet danger" type="submit">Delete</button>
 			</form>
 		</div>
@@ -148,5 +162,24 @@
 	.retry {
 		margin: 0 0 12px;
 		font-weight: 600;
+	}
+	.delete {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px 14px;
+	}
+	.check {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		min-height: 44px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.check input {
+		width: 20px;
+		height: 20px;
+		accent-color: var(--nj-accent);
 	}
 </style>

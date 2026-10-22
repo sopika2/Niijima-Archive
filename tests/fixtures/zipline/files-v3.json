@@ -1,0 +1,18 @@
+[
+	{
+		"createdAt": "2023-05-01T10:00:00.000Z",
+		"expiresAt": null,
+		"name": "abc.png",
+		"mimetype": "image/png",
+		"id": 12,
+		"favorite": false,
+		"views": 0,
+		"folderId": null,
+		"maxViews": null,
+		"size": 1024,
+		"originalName": null,
+		"thumbnail": null,
+		"password": false,
+		"url": "/u/abc.png"
+	}
+]

@@ -52,9 +52,12 @@ export const actions: Actions = {
 		updateCollection(app.archive.db, item.collection.id, scope, { coverItemId: item.id });
 		return { message: `Now the cover of ${item.collection.name}.` };
 	},
-	delete: async ({ params, locals }) => {
+	delete: async ({ request, params, locals }) => {
 		const app = await runtime();
-		await removeItems(app.services, [params.id], scopeOf(locals));
+		const form = await request.formData();
+		await removeItems(app.services, [params.id], scopeOf(locals), {
+			alsoZipline: form.get('zipline') === '1'
+		});
 		redirect(303, '/');
 	}
 };

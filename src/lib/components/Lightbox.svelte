@@ -93,7 +93,7 @@
 		};
 	});
 
-	/* "Copy Mementos link": upload to Zipline once, then copy. */
+	/* "Copy Mementos link": every file has one; one still on its way to Zipline goes now. */
 	let mirrors = $state<Record<string, string>>({});
 	let copyState = $state<{ id: string; text: string; link?: string } | null>(null);
 	async function mementosLink(id: string): Promise<string> {
@@ -111,7 +111,8 @@
 		return body.url;
 	}
 	async function copyMementos(id: string) {
-		copyState = { id, text: 'Uploading…' };
+		const known = mirrors[id] ?? item?.media.find((m) => m.id === id)?.mirrorUrl;
+		copyState = { id, text: known ? 'Copying…' : 'Sending it to Mementos…' };
 		const link = mementosLink(id);
 		try {
 			if (typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
@@ -166,6 +167,10 @@
 				{/key}
 			{:else if file?.url}
 				{#key file.id}<img src={file.url} alt={file.alt ?? ''} />{/key}
+			{:else if file?.gone}
+				<p class="gone">
+					This file was deleted on Mementos. Delete the item, or keep it for the caption.
+				</p>
 			{:else if file}
 				<p class="gone">This file didn't download. Retry the fetch from the item's page.</p>
 			{:else}
@@ -294,7 +299,7 @@
 				{#if file?.url}
 					<a class="quiet" href={file.url} download>Download file</a>
 				{/if}
-				{#if mementos && file?.url}
+				{#if mementos && (file?.mirrorUrl || file?.url) && !file?.gone}
 					<button class="quiet" type="button" onclick={() => copyMementos(file.id)}
 						>Copy Mementos link</button
 					>

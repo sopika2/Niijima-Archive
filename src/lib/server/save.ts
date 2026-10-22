@@ -5,6 +5,7 @@ import {
 	deleteItems,
 	findTweet,
 	getItemRow,
+	ignoreZipline,
 	mediaOf,
 	recordFetchFailure,
 	recordTweet,
@@ -12,7 +13,8 @@ import {
 } from './db/items.ts';
 import type { MediaRow, Owner } from './db/schema.ts';
 import type { Scope } from './db/scope.ts';
-import { MediaRejected, type MediaStore } from './media/store.ts';
+import type { SavedFile, Storage } from './media/storage.ts';
+import { MediaRejected } from './media/store.ts';
 import { describeFetchError, safeFetch, type FetchLike } from './safe-fetch.ts';
 import { fetchTweet } from './tweet/client.ts';
 import { MEDIA_HOSTS, pickVariant, type NormalMedia } from './tweet/normalise.ts';
@@ -21,7 +23,7 @@ import type { TweetRef } from './tweet/url.ts';
 /** What saving needs: the database, the files, the limits. Tests pass their own. */
 export interface SaveServices {
 	readonly db: Db;
-	readonly store: MediaStore;
+	readonly store: Storage;
 	readonly maxUploadBytes: number;
 	readonly maxTweetMediaBytes: number;
 	readonly timeoutMs: number;
@@ -118,7 +120,7 @@ export async function fetchInto(
 	const problems: string[] = [];
 	for (const row of rows) {
 		const fresh = tweet.media[row.position];
-		if (row.path && (row.thumbPath || row.kind === 'image')) continue;
+		if ((row.path || row.ziplineId) && (row.thumbPath || row.kind === 'image')) continue;
 		try {
 			await download(services, row, fresh);
 		} catch (error) {
@@ -145,7 +147,7 @@ async function download(
 	};
 	const remote = fresh ? pickVariant(fresh, services.maxTweetMediaBytes) : row.remoteUrl;
 	const poster = fresh?.thumbnailUrl ?? row.posterUrl;
-	if (!row.path && remote) {
+	if (!row.path && !row.ziplineId && remote) {
 		let response;
 		try {
 			response = await safeFetch(remote, options);
@@ -161,7 +163,7 @@ async function download(
 			maxBytes: services.maxTweetMediaBytes
 		});
 		updateMedia(services.db, row.id, {
-			path: stored.path,
+			...where(stored),
 			thumbPath: stored.thumbPath,
 			mime: stored.mime,
 			bytes: stored.bytes,
@@ -220,7 +222,7 @@ export async function saveUpload(
 		position: 0,
 		kind: stored.kind,
 		mime: stored.mime,
-		path: stored.path,
+		...where(stored),
 		thumbPath: stored.thumbPath ?? thumb?.thumbPath ?? null,
 		width: stored.width ?? thumb?.width ?? null,
 		height: stored.height ?? thumb?.height ?? null,
@@ -229,15 +231,35 @@ export async function saveUpload(
 	return itemId;
 }
 
-/** Deletes items and their files. */
+/** The columns that say where a saved file lives. */
+function where(file: SavedFile) {
+	return {
+		path: file.path,
+		ziplineId: file.ziplineId,
+		ziplineName: file.ziplineName,
+		mirrorUrl: file.mirrorUrl,
+		keepLocal: file.keepLocal,
+		storageNote: file.storageNote
+	};
+}
+
+/**
+ * Deletes items and their files on the Archive's disk. Their Zipline copies stay on Mementos
+ * (and the sync won't bring them back) unless `alsoZipline` is set.
+ */
 export async function removeItems(
 	services: Pick<SaveServices, 'db' | 'store'>,
 	ids: readonly string[],
-	scope: Scope | null
-): Promise<number> {
-	const { deleted, files } = deleteItems(services.db, ids, scope);
-	await services.store.remove(files);
-	return deleted;
+	scope: Scope | null,
+	options: { alsoZipline?: boolean } = {}
+): Promise<{ deleted: number; ziplineFailed: number }> {
+	const { deleted, files, zipline } = deleteItems(services.db, ids, scope);
+	ignoreZipline(services.db, zipline, options.alsoZipline ? 'deleted' : 'kept');
+	const { ziplineFailed } = await services.store.remove(
+		{ paths: files, zipline },
+		options.alsoZipline ?? false
+	);
+	return { deleted, ziplineFailed };
 }
 
 /** A web address worth keeping as a source link (http or https), or null. */
