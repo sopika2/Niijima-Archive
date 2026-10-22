@@ -66,19 +66,19 @@ In `.env`:
 4. **`SAVE_TOKEN`** (optional): `openssl rand -hex 32`, for the iPhone Shortcut.
 5. **`ZIPLINE_URL` / `ZIPLINE_TOKEN`** (optional): keep every file on Mementos. See below.
 
-In `config.yml`, put your Discord user id under `access.discord_user_ids`, in quotes. If you don't
-know it, sign in once and the page shows it. Drop the host's picture into `assets/` as
-`host.webp` (or name another file in `host.art`). Until then a silhouette stands in. No game art
+The host's picture comes from `~/niijima-data/assets`, the folder every Niijima app and the
+landing page share (set `NIIJIMA_ASSETS` in `.env` to use another): `menu-makoto.png` by
+default, or name another file in `host.art`. Until then a silhouette stands in. No game art
 is ever committed to this repo.
 
 **Update:** `git pull && docker compose up -d --build`
 
-| To change              | Edit         | Then                             |
-| ---------------------- | ------------ | -------------------------------- |
-| Host, limits, sign-ins | `config.yml` | `docker compose restart archive` |
-| Host picture           | `assets/`    | Nothing; it shows on next load   |
-| Secrets, tokens        | `.env`       | `docker compose up -d`           |
-| The app itself         | `git pull`   | `docker compose up -d --build`   |
+| To change              | Edit                    | Then                             |
+| ---------------------- | ----------------------- | -------------------------------- |
+| Host, limits, sign-ins | `config.yml`            | `docker compose restart archive` |
+| Host picture           | `~/niijima-data/assets` | Nothing; it shows on next load   |
+| Secrets, tokens        | `.env`                  | `docker compose up -d`           |
+| The app itself         | `git pull`              | `docker compose up -d --build`   |
 
 **Backups:** the Archive's part is in `data/` (`archive.db`, `thumbs/` and, without Mementos,
 `media/`). Copy that folder, or use "Download everything" on the Collections page for a portable

@@ -21,7 +21,8 @@ services:
       # isn't set up (data/media/<yyyy>/<mm>/).
       - ./data:/app/data
       # Your own art (the host's picture). Never committed.
-      - ./assets:/app/assets:ro
+      # Character art, shared by every Niijima app (the landing page uses the same folder).
+      - ${NIIJIMA_ASSETS:-${HOME}/niijima-data/assets}:/app/assets:ro
       # This folder, read-only: the app reads config.yml from it.
       - ./:/app/settings:ro
     networks:

@@ -29,7 +29,7 @@ export const configSchema = z.strictObject({
 					message: 'must be a picture under /assets/, e.g. /assets/makoto.webp'
 				})
 				.refine((path) => !path.includes('..'), { message: 'must not contain ".."' })
-				.default('/assets/host.webp'),
+				.default('/assets/menu-makoto.png'),
 			lines: z
 				.array(z.string().min(1).max(240))
 				.min(1)

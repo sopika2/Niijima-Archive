@@ -15,7 +15,7 @@ timezone: Europe/Budapest # for the calendar in the corner
 # there, a silhouette stands in. One of the lines is picked each day.
 host:
   name: Makoto
-  art: /assets/host.webp
+  art: /assets/menu-makoto.png
   lines:
     - Everything we've taken, catalogued. Write down why you took it. Future you will ask.
     - A treasure without a caption is just clutter. Give it a reason to be here.
