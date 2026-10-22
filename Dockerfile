@@ -5,14 +5,17 @@ FROM node:22-slim AS build
 
 ENV PNPM_HOME=/pnpm \
 	PATH=/pnpm:$PATH \
+	npm_config_nodedir=/usr/local \
 	CI=true
 RUN corepack enable
 
 WORKDIR /src
 
 # Dependencies first, so code changes don't reinstall them. git: @niijima/design comes from GitHub.
+# python3, make, g++: build tools for the native modules (better-sqlite3, sharp) when no
+# prebuilt binary can be downloaded.
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends git ca-certificates \
+	&& apt-get install -y --no-install-recommends git ca-certificates python3 make g++ \
 	&& rm -rf /var/lib/apt/lists/*
 COPY package.json pnpm-lock.yaml .npmrc ./
 RUN pnpm install --frozen-lockfile
@@ -25,8 +28,12 @@ FROM node:22-slim AS deps
 
 ENV PNPM_HOME=/pnpm \
 	PATH=/pnpm:$PATH \
+	npm_config_nodedir=/usr/local \
 	CI=true
 RUN corepack enable
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates python3 make g++ \
+	&& rm -rf /var/lib/apt/lists/*
 WORKDIR /src
 COPY package.json pnpm-lock.yaml .npmrc ./
 RUN pnpm install --prod --frozen-lockfile
