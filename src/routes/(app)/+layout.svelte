@@ -40,10 +40,6 @@
 		</nav>
 	</header>
 
-	{#if data.accessOff}
-		<p class="warn" role="note">Sign-in is off (ACCESS_MODE=off). Fine on your own machine only.</p>
-	{/if}
-
 	<main class="page">
 		{@render children()}
 	</main>
@@ -144,14 +140,6 @@
 		background: var(--nj-paper);
 		color: var(--nj-ink);
 		box-shadow: inset 0 -5px 0 var(--nj-accent);
-	}
-	.warn {
-		margin: 6px var(--gutter) 0;
-		padding: 6px 10px;
-		background: var(--nj-ink);
-		color: var(--nj-hi-2);
-		font: 600 13px/1.3 var(--nj-font-body);
-		letter-spacing: 0.04em;
 	}
 	.page {
 		padding: 10px var(--gutter) 96px;

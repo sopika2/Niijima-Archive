@@ -8,7 +8,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	const app = await runtime();
 	return {
 		collections: collectionOptions(app.archive.db, scopeOf(locals)),
-		mementos: Boolean(app.zipline),
-		accessOff: app.access.mode === 'off'
+		mementos: Boolean(app.zipline)
 	};
 };
