@@ -21,7 +21,8 @@ It is a personal bookmark and image collection. It has no sharing features and n
 - **Upload** many files at once: drag and drop or paste on desktop, the picker on the phone, with
   progress and a caption per file. Files are checked by their first bytes (JPEG, PNG, GIF, WebP,
   AVIF, MP4, MOV, WebM) and a size limit. Each gets a WebP thumbnail; animated GIFs show a still
-  in the grid and play when opened. Files live in `data/media/<yyyy>/<mm>/<id>.<ext>`.
+  in the grid and play when opened. Files live on Mementos (your Zipline) when it is set up,
+  otherwise in `data/media/<yyyy>/<mm>/<id>.<ext>`. Thumbnails always stay in `data/thumbs/`.
 - **The Den:** a justified grid in saved order, loading more as you scroll. Filter by collection,
   tag or type, and search captions, tweet text, authors, tags and quoted tweets (SQLite FTS5).
   The lightbox steps through every file with ←/→ or a swipe, shows your caption, the tweet, its
@@ -34,9 +35,7 @@ It is a personal bookmark and image collection. It has no sharing features and n
   creates three collections: Makoto (Makoto's), Sae (Sae's) and Roman / Talia / Omi (shared).
 - **Phone:** install it on Android and it appears in the share sheet (see below). On iPhone, use
   the iOS Shortcut.
-- **Mementos (optional):** with `ZIPLINE_URL` and `ZIPLINE_TOKEN` set, every saved file gets
-  **Copy Mementos link**. The file is uploaded to your Zipline once and the link is kept.
-  Saving never waits for Zipline.
+- **Mementos (optional): Zipline as the storage.** See [Mementos](#mementos-zipline-as-the-storage).
 - `/healthz` for the container health check, the 404 Palace for missing pages, "Take your time"
   on slow page loads.
 
@@ -65,7 +64,7 @@ In `.env`:
    `ORIGIN`. Behind Traefik and the tunnel the app only sees plain http. `ORIGIN` tells it the
    real `https://` address, so form posts pass the origin check and cookies are `Secure`.
 4. **`SAVE_TOKEN`** (optional): `openssl rand -hex 32`, for the iPhone Shortcut.
-5. **`ZIPLINE_URL` / `ZIPLINE_TOKEN`** (optional), for Mementos links.
+5. **`ZIPLINE_URL` / `ZIPLINE_TOKEN`** (optional): keep every file on Mementos. See below.
 
 In `config.yml`, put your Discord user id under `access.discord_user_ids`, in quotes. If you don't
 know it, sign in once and the page shows it. Drop the host's picture into `assets/` as
@@ -81,8 +80,54 @@ is ever committed to this repo.
 | Secrets, tokens        | `.env`       | `docker compose up -d`           |
 | The app itself         | `git pull`   | `docker compose up -d --build`   |
 
-**Backups:** everything is in `data/` (`archive.db` and `media/`). Copy that folder, or use
-"Download everything" on the Collections page for a portable .zip.
+**Backups:** the Archive's part is in `data/` (`archive.db`, `thumbs/` and, without Mementos,
+`media/`). Copy that folder, or use "Download everything" on the Collections page for a portable
+.zip (it fetches the files from Mementos). With Mementos, the files themselves are backed up
+wherever Zipline keeps them (your Google Drive).
+
+## Mementos: Zipline as the storage
+
+With `ZIPLINE_URL` and `ZIPLINE_TOKEN` in `.env`, your Zipline at
+`https://mementos.niijimasisters.com` becomes where the Archive keeps its files. Built for
+**Zipline v4** (tested against the API of v4.8); a Zipline v3 is recognised and the Mementos page
+says it needs updating.
+
+- **Every save goes to Zipline:** uploads, shares from the phone, tweet photos, GIFs and videos,
+  and `/api/save`. The Archive keeps the Zipline file id and link plus a small thumbnail in
+  `data/thumbs/`, so the grid stays fast. Its uploads go into a Zipline folder called **Archive**
+  (`zipline.folder` in `config.yml`). If Zipline is down, the file is kept on disk and moved over
+  later, so a save never fails because of Zipline.
+- **Every item has its Mementos link** right away: **Copy Mementos link** in the lightbox.
+- **Viewing and video** stream through the Archive from Zipline, with byte ranges so videos seek
+  (and Safari plays them). Your browser only talks to the Archive: the token stays on the server,
+  password-protected Zipline files still work, and the traffic between the two containers stays
+  on the Docker network. **Download .zip** fetches the files from Zipline too.
+- **Your own Zipline uploads** (phone, ShareX, Zipline's web page) appear in the Den by
+  themselves, in a shared **Inbox** collection with thumbnails. The sync runs on start, every 5
+  minutes (`zipline.sync_minutes`) and on **Sync now**. Files the Archive uploaded itself are never
+  brought in twice. Pictures and videos only; other files are left alone. If you delete a file in
+  Zipline, its item gets a **Gone** tag (it comes back if the file does).
+- **Deleting an item** keeps its file on Zipline unless you tick **Also delete on Mementos**.
+  A kept file is not brought back by the sync.
+- **Moving what is already here:** on start, every file still in `data/media/` is uploaded, a
+  background job, oldest first, that picks up where it stopped after a restart. The local copy is
+  removed only after Zipline has sent back the very same bytes (size and SHA-256). If Zipline
+  stores a changed copy (its "remove GPS metadata" setting, or compression), the original stays
+  on disk for good, and the Mementos page tells you how many. Progress is on the **Mementos** page.
+
+Set it up:
+
+1. In Zipline, click your name (top right) → **Copy token** (or Settings → User → Token). Put it
+   in `.env` as `ZIPLINE_TOKEN`.
+2. `ZIPLINE_URL=https://mementos.niijimasisters.com`: the address links are made with.
+3. `ZIPLINE_INTERNAL_URL` is where the Archive itself reaches Zipline. The default,
+   `http://zipline:3000`, is Zipline's container on the `zipline_default` network the Archive is
+   already on (it is the `TRAEFIK_NETWORK` default). If your Traefik network is a different one,
+   add `zipline_default` to the Archive's networks in `compose.yml`, or set
+   `ZIPLINE_INTERNAL_URL` to the public address.
+4. `docker compose up -d`, then open **Mementos** in the Den to watch the move.
+
+Without the two variables nothing changes: files stay on the Archive's disk, as before.
 
 ## From your phone
 
@@ -141,7 +186,8 @@ and `404` while `SAVE_TOKEN` is unset. The sign-in cookie is never accepted here
 - Tweet text is always shown as text (links are split out in code). There is no `{@html}` in the
   app, and eslint forbids it. A strict Content-Security-Policy is set on every page.
 - Uploads are checked by their bytes, not their names. Files are served with their real type,
-  `nosniff`, and a sandboxing CSP.
+  `nosniff`, and a sandboxing CSP, also when they are streamed from Zipline (`/file/<id>`).
+- The Zipline token never leaves the server; the browser only sees the public `/u/` links.
 
 ## Development
 
@@ -156,12 +202,17 @@ Needs Node.js 22.18+ and pnpm 10. Without a `config.yml` the defaults apply.
 ```
 src/lib/server/db/          schema, migrations' SQL source, items, collections, FTS search, scope
 src/lib/server/tweet/       tweet links, the FxTwitter / vxTwitter normaliser, the API client
-src/lib/server/media/       magic bytes, the file store and thumbnails, ranged file serving
+src/lib/server/media/       magic bytes, the disk store and thumbnails, the storage (Zipline or
+                            disk), ranged file serving and the Zipline proxy
 src/lib/server/save.ts      saving tweets and uploads; retry; delete
 src/lib/server/api-save.ts  POST /api/save
-src/lib/server/zipline.ts   Mementos uploads
+src/lib/server/zipline.ts   the Zipline v4 API client
+src/lib/server/mementos.ts  the migration to Zipline and the sync of her own Zipline uploads
 src/lib/server/export.ts    .zip downloads
 tests/fixtures/tweets/      real API answers recorded for the tests (tests never use the network)
+tests/fixtures/zipline/     Zipline v4 and v3 answers, shaped from Zipline's source
+tests/fake-zipline.ts       a small fake Zipline v4 for the tests; `node scripts/fake-zipline.ts`
+                            runs it on :3999 for trying Mementos by hand
 ```
 
 Schema changes: edit `src/lib/server/db/schema.ts`, run `pnpm db:generate`, and commit the new

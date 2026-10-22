@@ -17,7 +17,8 @@ services:
       # really uses, so form posts pass the origin check and cookies get the Secure flag.
       ORIGIN: ${PUBLIC_URL:-https://archive.niijimasisters.com}
     volumes:
-      # The database, every saved file (data/media/<yyyy>/<mm>/) and the share inbox.
+      # The database, thumbnails, the share inbox, and the saved files when Mementos (Zipline)
+      # isn't set up (data/media/<yyyy>/<mm>/).
       - ./data:/app/data
       # Your own art (the host's picture). Never committed.
       - ./assets:/app/assets:ro
